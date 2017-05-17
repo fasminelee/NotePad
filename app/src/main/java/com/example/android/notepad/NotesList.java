@@ -16,11 +16,9 @@
 
 package com.example.android.notepad;
 
-import com.example.android.notepad.NotePad;
-
 import android.app.ListActivity;
-import android.content.ClipboardManager;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
@@ -30,11 +28,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -60,6 +58,7 @@ public class NotesList extends ListActivity {
     private static final String[] PROJECTION = new String[] {
             NotePad.Notes._ID, // 0
             NotePad.Notes.COLUMN_NAME_TITLE, // 1
+            NotePad.Notes.COLUMN_NAME_CREATE_DATE, //2
     };
 
     /** The index of the title column */
@@ -117,11 +116,17 @@ public class NotesList extends ListActivity {
          */
 
         // The names of the cursor columns to display in the view, initialized to the title column
-        String[] dataColumns = { NotePad.Notes.COLUMN_NAME_TITLE } ;
+        String[] dataColumns = {
+                NotePad.Notes.COLUMN_NAME_TITLE,
+                NotePad.Notes.COLUMN_NAME_CREATE_DATE,
+        } ;
 
         // The view IDs that will display the cursor columns, initialized to the TextView in
         // noteslist_item.xml
-        int[] viewIDs = { android.R.id.text1 };
+        int[] viewIDs = {
+                R.id.title,
+                R.id.creatTime,
+        };
 
         // Creates the backing adapter for the ListView.
         SimpleCursorAdapter adapter
